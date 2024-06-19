@@ -395,32 +395,111 @@ namespace WebApp.SqlDal
 
         public async Task<Bild> GetBildByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                {
+                    string sql = "SELECT * FROM Bild WHERE BId = @BId";
+                    Bild bild = await connection.QueryFirstOrDefaultAsync<Bild>(sql, new { BId = id });
+                    return bild;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public async Task<List<Bild>> GetBildBySichtungIdAsync(int sichtungId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                {
+                    string sql = "SELECT * FROM Bild WHERE SichtungId = @SichtungId";
+                    var bild = await connection.QueryAsync<Bild>(sql, new { SichtungId = sichtungId });
+                    return bild.ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public async Task<List<Bild>> GetAllBildAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                {
+                    string sql = "SELECT * FROM Bild";
+                    var bild = await connection.QueryAsync<Bild>(sql);
+                    return bild.ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public async Task<int> AddBildAsync(Bild bild)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+                    string sql = "INSERT INTO Bild (Sid, Name) VALUES (@Sid, @Name); SELECT LAST_INSERT_ID();";
+                    int result = await connection.QuerySingleAsync<int>(sql, bild);
+                    return result;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public async Task<bool> UpdateBildAsync(Bild bild)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                {
+                    string sql = "UPDATE Bild SET Sid = @Sid, Name = @Name WHERE BId = @BId";
+                    int result = await connection.ExecuteAsync(sql, bild);
+                    return result > 0;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public async Task<bool> DeleteBildAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                {
+                    string sql = "DELETE FROM Bild WHERE BId = @BId";
+                    int result = await connection.ExecuteAsync(sql, new { BId = id });
+                    return result > 0;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using WebApp.Model;
+﻿using System.Drawing;
+using WebApp.Model;
+using WebApp.Model.BildModel;
 using WebApp.Model.KategorieModel;
 using WebApp.Model.MelderModel;
 using WebApp.Model.ModelSichtung;
@@ -107,6 +109,34 @@ public class BusinessLayer
     public async Task<bool> DeleteSichtung(int id)
     {
         return await _dal.DeleteSichtungAsync(id);
+    }
+    #endregion
+
+    #region Bild
+    public async Task<Bild> GetBildById(int id)
+    {
+        return await _dal.GetBildByIdAsync(id);
+    }
+    
+    public async Task<List<Bild>> GetAllBilds()
+    {
+        return await _dal.GetAllBildAsync();
+    }
+    public async Task<List<Bild>> GetBildBySichtungId(int sichtungId)
+    {
+        return await _dal.GetBildBySichtungIdAsync(sichtungId);
+    }
+    public async Task<int> InsertBild(Bild bild)
+    {
+        return await _dal.AddBildAsync(bild);
+    }
+    public async Task<bool> UpdateBild(Bild bild)
+    {
+        return await _dal.UpdateBildAsync(bild);
+    }
+    public async Task<bool> DeleteBild(int id)
+    {
+        return await _dal.DeleteBildAsync(id);
     }
     #endregion
     

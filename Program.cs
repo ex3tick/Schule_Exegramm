@@ -1,3 +1,11 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
+using WebApp.BusinessLayer;
+using WebApp.Model.BildModel;
+using WebApp.Model.KategorieModel;
+using WebApp.Model.MelderModel;
+using WebApp.Model.ModelSichtung;
+
 namespace WebApp
 {
     public class Program
@@ -6,12 +14,24 @@ namespace WebApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //Konfiguration der Anwendung als MVC-Anwendung
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApp API", Version = "v1" });
+            });
 
             var app = builder.Build();
 
-            //app.MapGet("/", () => "Hello World!");
+            app.UseSwagger();
+
+           
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApp API v1");
+                c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
+            });
+
             app.UseStaticFiles();
             app.UseRouting();
             app.MapControllerRoute(
