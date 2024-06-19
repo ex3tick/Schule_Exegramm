@@ -7,17 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Dapper" Version="2.1.35" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.1"/>
+        <PackageReference Include="MySql.Data" Version="8.4.0" />
     </ItemGroup>
 
     <ItemGroup>
         <Content Update="wwwroot\Images\ex3.jpeg">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="Model\"/>
     </ItemGroup>
 
 </Project>
