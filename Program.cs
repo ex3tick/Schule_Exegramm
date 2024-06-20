@@ -18,7 +18,7 @@ namespace WebApp
 
             builder.Services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApp API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ex3gramm API", Version = "v1" });
             });
 
             var app = builder.Build();
@@ -28,8 +28,8 @@ namespace WebApp
            
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApp API v1");
-                c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ex3gramm v1");
+                c.RoutePrefix = string.Empty; 
             });
 
             app.UseStaticFiles();

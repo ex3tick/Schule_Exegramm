@@ -10,7 +10,7 @@ namespace WebApp.Model
     public interface IAccessible
     {
         #region Melder
-        Task<Melder> GetMelderByIdAsync(int id);
+       Task<Melder> GetMelderByIdAsync(int id);
         Task<Melder> GetMelderByBenutzernameAsync(string benutzername);
         Task<Melder> GetMelderByEmailAsync(string email);
         Task<List<Melder>> GetAllMelderAsync();

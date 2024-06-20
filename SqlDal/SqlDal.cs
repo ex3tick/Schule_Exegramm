@@ -5,13 +5,17 @@ using WebApp.Model.BildModel;
 using WebApp.Model.KategorieModel;
 using WebApp.Model.MelderModel;
 using WebApp.Model.ModelSichtung;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
+
+
+
+
 
 namespace WebApp.SqlDal
 {
-    public class SqlDal : IAccessible
+    // das ist zum austellen der warnings weil mich das nervt
+#pragma warning  disable 
+ public class SqlDal : IAccessible
     {
         private readonly string _connectionString;
 
