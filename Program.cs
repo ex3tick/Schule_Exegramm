@@ -1,10 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
-using WebApp.BusinessLayer;
-using WebApp.Model.BildModel;
-using WebApp.Model.KategorieModel;
-using WebApp.Model.MelderModel;
-using WebApp.Model.ModelSichtung;
 
 namespace WebApp
 {
@@ -14,8 +9,10 @@ namespace WebApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllersWithViews();
+            // Konfiguration der Anwendung als API
+            builder.Services.AddControllers();
 
+            // Swagger-Konfiguration
             builder.Services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ex3gramm API", Version = "v1" });
@@ -23,20 +20,28 @@ namespace WebApp
 
             var app = builder.Build();
 
-            app.UseSwagger();
+            // Middleware-Konfiguration
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
+            }
 
-           
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseRouting();
+
+            app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ex3gramm v1");
-                c.RoutePrefix = string.Empty; 
+                c.RoutePrefix = string.Empty;
             });
 
-            app.UseStaticFiles();
-            app.UseRouting();
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
 
             app.Run();
         }
