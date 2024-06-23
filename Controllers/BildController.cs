@@ -100,4 +100,23 @@ public class BildController : Controller
                 return StatusCode(500, "Interner Serverfehler");
             }
         }
+        [HttpGet]
+        [Route("/api/Bild/SichtungId")] 
+        public async Task<IActionResult> GetBildBySichtungId([FromQuery] int sichtungId)
+        {
+            try
+            {
+                var bild = await _business.GetBildBySichtungId(sichtungId);
+                if (bild == null)
+                {
+                    return NotFound($"Bild mit SichtungID {sichtungId} wurde nicht gefunden.");
+                }
+
+                return Ok(bild);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Interner Serverfehler");
+            }
+        }
 }

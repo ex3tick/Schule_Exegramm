@@ -421,8 +421,8 @@ namespace WebApp.SqlDal
             {
                 using (MySqlConnection connection = new MySqlConnection(_connectionString))
                 {
-                    string sql = "SELECT * FROM Bild WHERE SichtungId = @SichtungId";
-                    var bild = await connection.QueryAsync<Bild>(sql, new { SichtungId = sichtungId });
+                    string sql = "SELECT * FROM Bild WHERE SId = @SId";
+                    var bild = await connection.QueryAsync<Bild>(sql, new { SId = sichtungId });
                     return bild.ToList();
                 }
             }
